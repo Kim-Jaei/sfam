@@ -1,0 +1,46 @@
+import java.util.*;
+
+class Solution {
+    public int solution(int k, int m, int[] score) {
+        // answer : 최저 점수 x m x 상자 개수 (어차피 상자개수는 묶음 당 1개라서 때문에 의미는 없다.)
+        // 최상품은 최상품끼리, 최하품은 최하품끼리 최대한 묶기! -> 내림차순 정렬
+        
+        int answer = 0;
+        int boxCount = score.length / m;
+        PriorityQueue<Integer> pq = new PriorityQueue<>(Collections.reverseOrder()); // 내림차순 정렬
+        
+        for (int s : score) {
+            pq.add(s);
+        }
+        
+        for (int i = 0; i < boxCount; i++) {
+            int minScore = Integer.MAX_VALUE;
+            for (int j = 0; j < m; j++) {
+                if(!pq.isEmpty()) {
+                    minScore = Math.min(minScore, pq.poll());
+                }
+            }
+            answer += minScore * m;
+        }
+        
+        return answer;
+    }
+}
+
+
+// 천재적인 다른 사람의 풀이
+// import java.util.*;
+
+// class Solution {
+//     public int solution(int k, int m, int[] score) {
+//         int answer = 0;
+
+//         Arrays.sort(score);
+
+//         for(int i = score.length; i >= m; i -= m){
+//             answer += score[i - m] * m;
+//         }
+
+//         return answer;
+//     }
+// }
