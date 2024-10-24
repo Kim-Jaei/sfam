@@ -1,0 +1,21 @@
+import java.util.*;
+class Solution {
+    public int solution(int k, int m, int[] score) {
+
+        // 오름차순 정렬
+        Arrays.sort(score);
+
+        // 몫, 나머지 구하기
+        int len = score.length;
+        int rest = len % m ;
+        int share = len / m ;
+        int sum = 0;
+
+        // 나머지부터 m씩 간격으로 기준 가격을 구한뒤 개수만큼 곱해 가격을 구한다.
+        for(int i = rest ; i < len; i = i+m){
+            sum += score[i]*m;
+        }
+
+        return sum;
+    }
+}
