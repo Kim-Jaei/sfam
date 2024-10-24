@@ -1,0 +1,19 @@
+import java.util.*;
+
+class Solution {
+    public int solution(int k, int m, int[] score) {
+        Arrays.sort(score);
+        int answer = 0;
+        int l = score.length;
+        int price = 0;
+        
+        for(int i = l - m; i >= 0; i -= m) {
+            if(m > score.length) return 0;
+            price = score[i] * m;
+            answer += price;
+        }
+        return answer;
+    }
+}
+
+// https://school.programmers.co.kr/learn/courses/30/lessons/135808
