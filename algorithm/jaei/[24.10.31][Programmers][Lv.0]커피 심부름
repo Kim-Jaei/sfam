@@ -1,0 +1,29 @@
+class Solution {
+    public int solution(String[] order) {
+        int answer = 0;
+        
+        for (int i = 0; i < order.length; i++) {
+            if (order[i].equals("iceamericano") ||
+                order[i].equals("americanoice") || 
+                order[i].equals("hotamericano") ||
+                order[i].equals("americanohot") || 
+                order[i].equals("americano") || 
+                order[i].equals("anything")) {
+                answer += 4500;
+            } else answer += 5000;
+        }
+        
+        return answer;
+    }
+}
+
+// cafelatte 제외하고 모두가 4500원인 것이었다.
+// class Solution {
+//     public int solution(String[] order) {
+//         int answer = 0;
+//         for(String menu : order) {
+//             answer += menu.contains("cafelatte") ? 5000 : 4500; // 카페라떼라는 String이 포함됐으면 오천원, 없으면 4500원
+//         }
+//         return answer;
+//     }
+// }
