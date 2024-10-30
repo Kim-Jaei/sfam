@@ -1,0 +1,50 @@
+import java.util.*;
+
+class Solution {
+    public int[] solution(String s) {
+        Map<Integer, List<Integer>> map = new HashMap<>(); // 원소를 개수별로 튜플을 구분해줄 맵
+        int min = Integer.MAX_VALUE; // 최소 원소 개수를 담아줄 변수
+
+        // 문자열 s를 원소 개수별로 담아주는 로직
+        for(int i = 1; i < s.length()-1; ++i) {
+            if(s.charAt(i) == '{') {
+                ++i;
+                List<Integer> temp = new ArrayList<>(); // 현재 튜플을 담아줄 리스트
+                while(s.charAt(i) != '}') {
+                    String cur = "";
+                    while(s.charAt(i) != ',' && s.charAt(i) != '}') {
+                        cur += s.charAt(i);
+                        ++i;
+                    }
+                    temp.add(Integer.parseInt(cur));
+                    if(s.charAt(i) == '}') continue;
+                    ++i;
+                }
+                if(min > temp.size()) min = temp.size();
+                map.put(temp.size(), temp);
+            }
+        }
+
+        int cur = min; // 최소 원소 개수
+        int index = 0; // 시작 인덱스
+        int[] answer = new int[map.size()]; // 최종 튜플을 담아줄 배열
+        Set<Integer> set = new HashSet<>(); // 중복되지 않은 원소를 담아줄 집합
+
+        // 원소 개수가 적은 튜플부터 중복되지 않는 순으로 원소를 배열에 담아주는 로직
+        while(index < map.size()) {
+            int curSize = set.size();
+            for(int i = 0; i < map.get(cur).size(); ++i) {
+                set.add(map.get(cur).get(i));
+                if(set.size() > curSize) {
+                    answer[index] = map.get(cur).get(i);
+                    ++cur;
+                    ++index;
+                    break;
+                }
+            }
+        }
+
+        return answer;
+
+    }
+}
