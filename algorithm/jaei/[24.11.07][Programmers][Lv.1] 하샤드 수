@@ -13,8 +13,7 @@ class Solution {
 
 
 // String 변환 없이 수학적 방법으로 자릿수 분리하기
-answer = 0;
-int x = 1234;
+int answer = 0;
 int original = x;
 
 while (x > 0) {
