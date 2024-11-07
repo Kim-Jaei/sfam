@@ -1,0 +1,28 @@
+import java.util.*;
+
+class Solution {
+    public String solution(String s, String skip, int index) {
+        // a부터 z까지 선언을 일단 해야 하나요...? -> 아님
+        // 알파벳 배열에서 skip을 제거하기
+        // s를 돌면서 알파벳 배열이랑 같은 문자열을 찾아 index만큼 뒤로 이동해서 +=answer
+        
+        List<Character> alphabet = new ArrayList<>();
+        for (char c = 'a'; c <= 'z'; c++) {
+            if (skip.indexOf(c) == -1) { // skip 문자열에 현재 문자열 c가 없으면 리스트에 추가
+                alphabet.add(c);
+            }
+        }
+        
+        String answer = "";
+        
+        for (int i = 0; i < s.length(); i++) {
+            char ch = s.charAt(i);
+            int startIdx = alphabet.indexOf(ch); // 알파벳 리스트에서 ch의 인덱스를 찾아 startIdx에 저장
+            
+            int newIdx = (startIdx + index) % alphabet.size(); // 찾으려는 인덱스
+            answer += alphabet.get(newIdx); // 알파벳 리스트에서 newIdx 위치에 있는 문자를 answer에 추가
+        }
+        
+        return answer;
+    }
+}

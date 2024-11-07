@@ -1,0 +1,25 @@
+class Solution {
+    public boolean solution(int x) {
+        String str = String.valueOf(x); // x를 문자열로 변환
+        int total = 0;
+        
+        for (int i = 0; i < str.length(); i++) {
+            total += Character.getNumericValue(str.charAt(i)); // 각 자릿수를 정수로 변환하여 total에 저장
+        }
+        
+        return x % total == 0; // 나눠떨어지냐?
+    }
+}
+
+
+// String 변환 없이 수학적 방법으로 자릿수 분리하기
+int answer = 0;
+int original = x;
+
+while (x > 0) {
+    int digit = x % 10;
+    answer += digit;
+    x = x /10;
+}
+
+return original % digit == 0;
