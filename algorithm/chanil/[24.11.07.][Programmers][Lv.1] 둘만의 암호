@@ -1,0 +1,39 @@
+import java.util.*;
+
+class Solution {
+    public String solution(String s, String skip, int index) {
+
+        List<Character> skipC = new ArrayList<>();
+        String answer  = "";
+
+        for(char c : skip.toCharArray()){
+            skipC.add(c);
+        }
+
+        // 아스키코드로 변환해서 skipC에 있으면 하나 넘기기
+        for(char c : s.toCharArray()){
+            char change = c;
+            int change_cnt = 0;
+
+            while( change_cnt < index){
+                change++;
+
+                // 알파벳이 넘어가면 a로 다시 돌아오기
+                if(change > 'z'){
+                    change = 'a';
+                }
+
+                // 알파벳이 skip 내에 없으면 카운트해주기
+                if(!skipC.contains(change)){
+                    change_cnt++;
+                }
+            }
+
+            answer += change;
+        }
+
+
+        return answer;
+
+    }
+}
