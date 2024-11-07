@@ -1,0 +1,15 @@
+import java.util.*;
+
+class Solution {
+    public boolean solution(int x) {
+        int xSum = 0;
+        String xString = x+""; // x자릿수를 나누기 위해 문자열로 변환
+        char[] xArray = xString.toCharArray(); // 각 문자를 구분하기 위해 배열 생성
+
+        for(int i = 0; i < xArray.length; i++) { //반복하면서 각 자리 수 더하기
+            int xInt = xArray[i] - '0';
+            xSum += xInt;
+        }
+        return x % xSum == 0; // x랑 x자릿수들의 합을 나눈 나머지가 0이 맞는지 리턴
+    }
+}

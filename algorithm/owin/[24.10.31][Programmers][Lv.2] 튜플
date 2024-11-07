@@ -1,0 +1,32 @@
+// ,를 기준으로 숫자를 나누고, 숫자 중복 검사해서 가장 많이 중복되는 숫자를 answer 배열에 차례로 배치
+
+// replaceAll, getOrDefault, Entry, entrySet
+// replaceall 안에서는 정규표현식이 가능 [] 는 안에 있는 모든 문자를 모두 선택 ex) [abc] == a || b || c
+import java.util.*;
+
+class Solution {
+    public int[] solution(String s) {
+     // 1. 문자열 파싱
+        s = s.replaceAll("[{}]", "");  // 중괄호 제거 // "2,2,1,2,1,3,2,1,3,4"
+        String[] elements = s.split(",");  // 쉼표로 숫자 분리 // [2,2,1,2,1,3,2,1,3,4]
+
+     // 2. 숫자의 등장 빈도 계산
+        Map<Integer, Integer> map = new HashMap<>();
+        for (String element : elements) {
+            int num = Integer.parseInt(element);
+            map.put(num, map.getOrDefault(num, 0) + 1); // (없으면 0 있으면 해당값 반환)+1
+        }
+
+     // 3. 등장 빈도를 기준으로 숫자 정렬
+        List<Map.Entry<Integer, Integer>> entryList = new ArrayList<>(map.entrySet());
+        entryList.sort((a, b) -> b.getValue().compareTo(a.getValue())); // 값 기준 내림차순 정렬
+
+     // 4. 정렬된 숫자들로 배열 생성
+        int[] answer = new int[entryList.size()];
+        for (int i = 0; i < entryList.size(); i++) {
+            answer[i] = entryList.get(i).getKey(); // 리스트에서 키를 순서대로 answer 배열에 대입
+        }
+
+        return answer;
+    }
+}

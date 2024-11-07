@@ -1,0 +1,32 @@
+class Solution {
+    public String solution(String s, String skip, int index) {
+        String answer = "";  // String 타입을 사용하여 초기화
+        // skip에 있는 문자들을 Set에 저장하여 빠르게 제외할 수 있게 함
+        boolean[] skipSet = new boolean[26];  // 'a'부터 'z'까지
+        for (int i = 0; i < skip.length(); i++) {
+            skipSet[skip.charAt(i) - 'a'] = true;  // skip에 포함된 문자들에 대해 true 설정
+        }
+
+        // s의 각 문자에 대해 index만큼 뒤로 이동
+        for (int i = 0; i < s.length(); i++) {
+            char currentChar = s.charAt(i);
+            int currentAscii = currentChar - 'a';  // 현재 문자의 아스키 코드에서 'a'를 빼서 0~25로 표현
+
+            int newIndex = currentAscii;
+            int count = 0;
+
+            // skip에 포함되지 않은 문자를 찾아서 뒤로 index만큼 이동
+            while (count < index) {
+                newIndex = (newIndex + 1) % 26;  // 다음 문자로 이동 (z 넘어가면 다시 a로)
+                if (!skipSet[newIndex]) {  // skip에 포함되지 않은 문자일 때만
+                    count++;
+                }
+            }
+
+            // 새로운 문자를 answer에 추가
+            answer += (char)(newIndex + 'a');  // 새로운 문자 생성 후, String에 더함
+        }
+
+        return answer;
+    }
+}
