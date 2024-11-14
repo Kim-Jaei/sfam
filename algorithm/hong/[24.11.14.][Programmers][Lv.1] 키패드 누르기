@@ -1,0 +1,79 @@
+import java.util.*;
+
+class Solution {
+    public String solution(int[] numbers, String hand) {
+        String answer = "";
+        int Lposition = 10;
+        int Rposition = 12;
+
+        for(int cur : numbers) {
+            if(cur == 2 || cur == 5 || cur == 8 || cur == 0) {
+                if(cur == 0) cur = 11;
+
+                int Labs = Math.abs(cur-Lposition);
+                int Rabs = Math.abs(cur-Rposition);
+                int Llength = 0;
+                int Rlength = 0;
+
+                if(Labs / 3 > 0) {
+                    Llength += Labs/3;
+                    Labs %= 3;
+                }
+                Llength += Labs;
+
+                if(Rabs / 3 > 0) {
+                    Rlength += Rabs/3;
+                    Rabs %= 3;
+                }
+                Rlength += Rabs;
+
+                if(Llength == Rlength) {
+                    if(hand.equals("right")) {
+                        answer += "R";
+                        Rposition = cur;
+                    } else {
+                        answer += "L";
+                        Lposition = cur;
+                    }
+                } else if(Llength > Rlength) {
+                    answer += "R";
+                    Rposition = cur;
+                } else {
+                    answer += "L";
+                    Lposition = cur;
+                }
+
+                continue;
+            }
+
+            switch(cur) {
+                case 1:
+                    Lposition = 1;
+                    answer += "L";
+                    break;
+                case 4:
+                    Lposition = 4;
+                    answer += "L";
+                    break;
+                case 7:
+                    Lposition = 7;
+                    answer += "L";
+                    break;
+                case 3:
+                    Rposition = 3;
+                    answer += "R";
+                    break;
+                case 6:
+                    Rposition = 6;
+                    answer += "R";
+                    break;
+                case 9:
+                    Rposition = 9;
+                    answer += "R";
+                    break;
+            }
+        }
+
+        return answer;
+    }
+}

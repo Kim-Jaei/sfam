@@ -1,0 +1,68 @@
+import java.util.*;
+
+class Solution {
+    public int[] solution(int[] lottos, int[] win_nums) {
+        int[] answer = new int[2];
+        int best = 0;
+        int worst = 0;
+
+        for(int lotto : lottos) {
+            for(int num : win_nums) {
+                if(lotto == 0) {
+                    ++best;
+                    break;
+                }
+                else if(lotto == num) {
+                    ++best;
+                    ++worst;
+                    break;
+                }
+            }
+        }
+
+        switch(best) {
+            case 2:
+                best = 5;
+                break;
+            case 3:
+                best = 4;
+                break;
+            case 4:
+                best = 3;
+                break;
+            case 5:
+                best = 2;
+                break;
+            case 6:
+                best = 1;
+                break;
+            default:
+                best = 6;
+        }
+
+        switch(worst) {
+            case 2:
+                worst = 5;
+                break;
+            case 3:
+                worst = 4;
+                break;
+            case 4:
+                worst = 3;
+                break;
+            case 5:
+                worst = 2;
+                break;
+            case 6:
+                worst = 1;
+                break;
+            default:
+                worst = 6;
+        }
+
+        answer[0] = best;
+        answer[1] = worst;
+
+        return answer;
+    }
+}

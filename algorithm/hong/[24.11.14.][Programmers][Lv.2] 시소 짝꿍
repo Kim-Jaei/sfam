@@ -1,0 +1,89 @@
+
+/*
+    처음에 문제를 잘 못 이해함.
+    결국 weights의 원소 하나하나가 한 사람임.
+    같은 무게더라도 다른 사람.
+*/
+// import java.util.*;
+
+// class Solution {
+
+//     static int[] dist = { 2, 3, 4 };
+
+//     public long solution(int[] weights) {
+//         Set<Integer> set = new HashSet<>();
+//         int answer = 0;
+
+//         for(int weight : weights) {
+//             int size = set.size();
+
+//             set.add(weight);
+
+//             if(set.size() == size) {
+//                 ++answer;
+//             }
+//         }
+
+//         Set<Integer> Newtons = new HashSet<>();
+
+//         for(int weight : set) {
+//             for(int i = 0; i < 3; ++i) {
+//                 int newton = weight * dist[i];
+//                 int size = Newtons.size();
+
+//                 Newtons.add(newton);
+
+//                 if(Newtons.size() == size) {
+//                     ++answer;
+//                 }
+//             }
+//         }
+
+//         return answer;
+
+//     }
+// }
+
+/*
+    결과 : 실패
+    반례를 찾아야 함
+*/
+import java.util.*;
+
+class Solution {
+
+    static int[] dist = { 1, 2, 3, 4 };
+
+    public long solution(int[] weights) {
+        Map<Integer, List<Integer>> map = new HashMap<>();
+        int size = weights.length;
+        int answer = 0;
+
+        for(int i = 0; i < size; ++i) {
+            List<Integer> curWeights = new ArrayList<>();
+            for(int j = 0; j < 4; ++j) {
+                curWeights.add(weights[i] * dist[j]);
+            }
+            map.put(i, curWeights);
+        }
+
+        for(int i = 0; i < size; ++i) {
+            for(Map.Entry<Integer, List<Integer>> entry : map.entrySet()) {
+                if(entry.getKey() >= i) continue;
+                loop:
+                for(int j = 0; j < 4; ++j) {
+                    int cur = weights[i] * dist[j];
+                    for(int w : entry.getValue()) {
+                        if(w == cur) {
+                            System.out.println(entry.getKey() + ", " + i + ", " + weights[i] + ", " + cur);
+                            ++answer;
+                            break loop;
+                        }
+                    }
+                }
+            }
+        }
+
+        return answer;
+    }
+}
