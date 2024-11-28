@@ -1,0 +1,55 @@
+/*  1. 1,4,7,3,6,9는 왼쪽 오른쪽으로 치환
+    2. 조건문 사용해서 오른손이 가깝다면 R 왼손이 가깝다면 L을 만들자
+    3. 둘이 거리가 같다면 hand로 확인하자
+    4. 배열을 반복문으로 확인해서 치환하고 문자열 반복적으로 더해주면 될듯
+*/
+
+class Solution {
+    public String solution(int[] numbers, String hand) {
+        String answer = "";
+        char LR = 'L';
+        int L = 10;
+        int R = 12;
+        
+        for(int i = 0; i < numbers.length; i++) {
+            int spot = numbers[i];
+            if(spot == 1 || spot == 4 || spot == 7) {
+                LR = 'L';
+                L = spot;
+            } else if(spot == 3 || spot == 6 || spot == 9) {
+                LR = 'R';
+                R = spot;
+            } else {
+                // 0번 처리
+                 if (spot == 0) spot = 11;
+                // 왼손과의 거리와 오른손과의 거리를 계산
+                int leftDistance = Math.abs(spot - L) / 3 + Math.abs(spot - L) % 3;
+                int rightDistance = Math.abs(spot - R) / 3 + Math.abs(spot - R) % 3;
+                // 출처: https://ittrue.tistory.com/487 [IT is True:티스토리]
+                if (leftDistance < rightDistance) {
+                    LR = 'L';
+                    L = spot;
+                } else if (leftDistance > rightDistance) {
+                    LR = 'R';
+                    R = spot;
+                } else {
+                    if(hand.equals("right")){
+                    LR = 'R';
+                    R = spot;
+                  } else {
+                    LR = 'L';
+                    L = spot;
+                    }
+                }
+
+            }
+            answer += LR;
+        }
+        return answer;
+    }
+}
+
+/*  1. 거리계산을 어떻게 하지.. 맨헤튼 공식??
+    2. 처리 다 하고 봤더니 실행결과에서 0만 바꿔서 나오길래 원인이 무엇인가 봤더니 현재 로직은 3*3의 거리만 체크하고 있기 때문에 4번째 줄에 있는 0은 체크하지 못하고 있었음
+    3. 겹치는 손 위치 처리가 안되고 있었음
+*/
