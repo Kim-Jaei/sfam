@@ -1,5 +1,6 @@
 /*  1. 최고순위는 맞춘개수와 0을 더해서 랭크로 치환
     2. 최저순위는 그대로 lottos배열에 win_nums배열과 일치하는 개수만 카운트해서 랭크로 치환
+    3. 순서대로 배열에 삽입?
 */
 import java.util.*;
 
@@ -8,7 +9,6 @@ class Solution {
         int[] ranking = {0, 0};
         int match = 0;
         int zero = 0;
-        // 일치하는지 확인하려고 .contains 쓰기 위한 set
         Set<Integer> set = new HashSet<>();
 
         for (int winNum : win_nums) {
