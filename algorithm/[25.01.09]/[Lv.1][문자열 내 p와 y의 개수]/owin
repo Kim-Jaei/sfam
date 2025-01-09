@@ -1,0 +1,19 @@
+import java.util.*;
+
+class Solution {
+    boolean solution(String s) {
+        boolean answer = true;
+        int p = 0, y = 0;
+        for(char a : s.toCharArray()) {
+            if(a == 'P' || a == 'p') {
+                p++;
+            } else if (a == 'Y' || a == 'y') {
+                y++;
+            }
+        }
+        if(p != y) {
+            answer = false;
+        }
+        return answer;
+    }
+}

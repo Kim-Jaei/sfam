@@ -1,0 +1,28 @@
+class Solution {
+    public int solution(int n) {
+        int answer = 0;
+        int nCount = 0;
+        boolean b = true;
+        String nBinary =  Integer.toBinaryString(n);
+        for(char e : nBinary.toCharArray()) {
+            if(e == '1') {
+                nCount++;
+            }
+        }
+        while(b) {
+            n++;
+            int nextNCount = 0;
+            String nextBinary = Integer.toBinaryString(n);
+            for(char e : nextBinary.toCharArray()) {
+                if(e == '1') {
+                    nextNCount++;
+                }
+            }
+            if(nextNCount == nCount) {
+                b = false;
+            }
+        }
+        answer = n;
+        return answer;
+    }
+}
