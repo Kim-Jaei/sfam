@@ -1,0 +1,32 @@
+import java.util.*;
+
+class Solution {
+    public int solution(int n) {
+        int answer = 0;
+        int point = calc(n);
+        n = n + 1;
+
+        while(calc(n) != point){
+            if(calc(n) == point){
+                return n;
+            }
+            n += 1;
+        }
+
+        return n;
+    }
+
+    // num이 들어오면 해당 수의 이진수 변환시 1의 개수를 return
+    public int calc(int num){
+        int cnt = 0;
+        String num1 = Integer.toBinaryString(num);
+
+        for(char c : num1.toCharArray()){
+            if(c == '1'){
+                cnt++;
+            }
+        }
+
+        return cnt;
+    }
+}

@@ -1,0 +1,28 @@
+import java.util.*;
+
+public class Solution {
+    public int[] solution(int []arr) {
+
+        Stack<Integer> s = new Stack<>();
+        s.push(arr[0]);
+
+        for(int i = 1; i < arr.length; i++){
+            int last = s.peek();
+
+            // 꼭대기랑 같으면 통과
+            if(arr[i] == last) continue;
+            else{
+                // 다르면
+                s.push(arr[i]);
+            }
+        }
+
+        // stack을 거꾸로 꺼내면서 배열에 넣기
+        int[] answer = new int[s.size()];
+        for(int i = s.size()-1; i >= 0; i --){
+            answer[i] = s.pop();
+        }
+
+        return answer;
+    }
+}
