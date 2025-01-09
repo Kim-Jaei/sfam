@@ -1,0 +1,32 @@
+import java.util.*;
+
+class Solution {
+    public long solution(int n, int[] works) {
+        PriorityQueue<Integer> pq = new PriorityQueue<>(Collections.reverseOrder());
+        long answer = 0;
+
+        // 1. pq에 원소 넣기
+        for(int i : works){
+            pq.offer(i);
+        }
+
+        // 2. n만큼 가장 큰 값을 빼주기
+        while(n > 0 && pq.size() != 0){
+            int num = pq.poll();
+
+            if(num == 0) break;
+
+            num -= 1;
+            n -= 1;
+
+            pq.offer(num);
+        }
+
+        // 3. 하나씩 뽑으면서 answer에 더하기
+        while(pq.size() != 0){
+            int num = pq.poll();
+            answer += num * num;
+        }
+
+        return answer;
+    }
