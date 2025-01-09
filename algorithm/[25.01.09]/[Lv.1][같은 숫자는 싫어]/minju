@@ -1,0 +1,29 @@
+import java.util.*;
+
+public class Solution {
+    public int[] solution(int []arr) {
+        
+        List<Integer> list = new ArrayList<>();
+        
+        //가장 첫번째 값은 비교할 이전 값이 없기 때문에 무조건 추가되어야 함!
+        list.add(arr[0]);
+        
+        //순회하면서 이전 값이랑 다르면 추가하기!
+        for(int i=1; i<arr.length; i++){
+            if(arr[i-1] !=arr[i]){
+                list.add(arr[i]);
+            }
+        }
+        
+        // System.out.print(list);
+        
+        
+        int[] answer = new int[list.size()];
+        for(int i=0; i<answer.length; i++){
+            answer[i]=list.get(i);
+        }
+        
+
+        return answer;
+    }
+}
