@@ -1,0 +1,27 @@
+import java.util.*;
+
+public class Solution {
+    public int[] solution(int []arr) {
+        Queue<Integer> answer = new LinkedList<>();
+        Queue<Integer> num = new LinkedList<>();
+        for(int e : arr) {
+            num.add(e);
+        }
+        num.add(10);
+        int numSize = num.size();
+        for(int i = 0; i < numSize; i++) {
+            int e = num.poll();
+            if(!num.peek().equals(e)) {
+                answer.add(e);
+                if(num.peek()==10) break;
+            }
+        }
+
+        int[] result = new int[answer.size()];
+        int answerSize = answer.size();
+        for(int i = 0; i < answerSize; i++) {
+            result[i] = answer.poll();
+        }
+        return result;
+    }
+}
