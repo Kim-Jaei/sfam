@@ -1,0 +1,31 @@
+import java.util.*;
+
+class Solution {
+    public int[] solution(int[] array, int[][] commands) {
+        int[] answer = new int[commands.length];
+        int idx = 0;
+
+        // 하나씩 진행
+        for(int[] command : commands){
+            int i = command[0] - 1;
+            int j = command[1] - 1;
+            int k = command[2] - 1;
+            int len = j - i + 1;
+
+            // i ~ j 까지 뽑아 새로운 배열 생성
+            int[] list = new int[len];
+
+            for(int x = 0; x < (j-i+1); x++){
+                list[x] = array[i+x];
+            }
+
+            Arrays.sort(list);
+
+            answer[idx] = list[k];
+            idx++;
+        }
+
+
+        return answer;
+    }
+}

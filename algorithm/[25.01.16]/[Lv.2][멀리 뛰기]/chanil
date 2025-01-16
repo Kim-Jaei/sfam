@@ -1,0 +1,73 @@
+풀이 1
+
+class Solution {
+
+    static int N = 0;
+    static int ANSWER = 0;
+
+
+    public long solution(int n) {
+        N = n;
+        recur(0);
+        return ANSWER%1234567;
+    }
+
+    public void recur(int num){
+        // 종료조건
+        if(N == num){
+            ANSWER++;
+            return;
+        }else if( num > N){
+            return;
+        }
+
+        // 반복조건
+        recur(num+ 1);
+        recur(num+ 2);
+    }
+}
+
+
+
+--------------------------------------------------------------------
+풀이2
+
+import java.util.*;
+
+class Solution {
+
+    static Map<Integer, Integer> m = new HashMap<>();
+
+    public int solution(int n) {
+        return calc(n);
+    }
+
+    public int calc(int num) {
+        if (num == 1) return 1;
+        if (num == 2) return 2;
+
+        if (!m.containsKey(num)) {
+            m.put(num, (calc(num - 1) + calc(num - 2)) % 1234567);
+        }
+
+        return m.get(num);
+    }
+}
+
+
+
+--------------------------------------------------------------------
+풀이3
+
+class Solution {
+    long[] dp = new long[2001];
+    public long solution(int n) {
+        dp[0] = 0;
+        dp[1] = 1;
+        dp[2] = 2;
+        for (int i = 3; i < dp.length; i++) {
+            dp[i] = (dp[i - 1] + dp[i - 2]) % 1234567;
+        }
+        return dp[n];
+  }
+}
