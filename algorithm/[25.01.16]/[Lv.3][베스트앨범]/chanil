@@ -1,0 +1,78 @@
+import java.util.*;
+
+class Solution {
+    public class Song{
+        String genres;
+        PriorityQueue<int[]> songs;
+        int sum = 0;
+
+        public Song(String name){
+            this.genres = name;
+            this.songs = new PriorityQueue<>((a, b) -> {
+                // 재생 수 높은 순 정렬
+                if(b[1] != a[1]) return b[1] - a[1];
+
+                // 재생 수가 같다면 인덱스 낮은 순 정렬
+                return a[0] - b[0];
+            });
+        }
+    }
+
+    public int[] solution(String[] genres, int[] plays) {
+        PriorityQueue<Song> songPq = new PriorityQueue<>((a, b) -> {
+            return b.sum - a.sum;
+        });
+        List<Song> existList = new ArrayList<>(); // 존재하는지 확인 용도
+
+        for(int i = 0; i < genres.length; i++){
+            String songName = genres[i];
+            int songPlays = plays[i];
+            Song curSong = null;
+
+            // existList에 들어가있는지 확인
+            for(Song s : existList){
+                // 존재하는 경우
+                if(s.genres.equals(songName)){
+                    curSong = s;
+                    break;
+                }
+            }
+
+            // existList에 없으면 = Pq 에도 없음
+            if(curSong == null){
+                // 새로운 객체 생성
+                Song newSong = new Song(songName);
+                newSong.songs.offer(new int[]{i, songPlays});
+                newSong.sum += songPlays;
+
+                // Pq, List에 추가
+                existList.add(newSong);
+                songPq.offer(newSong);
+            }else{
+             // existList에 있으면 업데이트
+                curSong.songs.offer(new int[]{i, songPlays});
+                curSong.sum += songPlays;
+
+                songPq.remove(curSong);
+                songPq.offer(curSong);
+            }
+        }
+
+        // 결과 생성
+        List<Integer> answer = new ArrayList<>();
+        while (!songPq.isEmpty()) {
+            Song currentSong = songPq.poll();
+
+            // 각 장르에서 최대 2곡 선택
+            int count = 0;
+            while (!currentSong.songs.isEmpty() && count < 2) {
+                answer.add(currentSong.songs.poll()[0]);
+                count++;
+            }
+        }
+
+        return answer.stream().mapToInt(Integer::intValue).toArray();
+
+
+    }
+}
