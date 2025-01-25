@@ -1,0 +1,72 @@
+import java.util.*;
+
+class Solution {
+    public int solution(int[] picks, String[] minerals) {
+        int answer = 0;
+        PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> {
+          if(a[0] != b[0]){
+              return b[0] - a[0];
+          }else if(a[1] != b[1]){
+              return b[1] - a[1];
+          }else{
+              return a[2] - b[2];
+          }
+        });
+
+        int diamond = picks[0];
+        int iron = picks[1];
+        int stone = picks[2];
+        int toolsSum = diamond + iron + stone;
+        int toolsCnt = 0;
+
+        int[] list = new int[3];
+
+        // pq에 5개 단위로 넣기
+        for(int i = 0; i < minerals.length; i++){
+            String mineral = minerals[i];
+
+
+            if(mineral.equals("diamond")){
+                list[0]++;
+            }else if(mineral.equals("iron")){
+                list[1]++;
+            }else{
+                list[2]++;
+            }
+
+            if(i % 5 == 4 || i == minerals.length -1 ){
+                if(toolsCnt == toolsSum) break;
+                toolsCnt++;
+
+                pq.offer(list);
+                list = new int[3];
+            }
+        }
+
+        // pq에서 하나씩 뽑으면서 계산
+        while(!pq.isEmpty()){
+            if(diamond == 0 && iron == 0 && stone == 0){
+                break;
+            }
+
+            int[] cur = pq.poll();
+            int curD = cur[0];
+            int curI = cur[1];
+            int curS = cur[2];
+
+            if(diamond != 0){
+                answer += curD + curI + curS;
+                diamond--;
+            }else if(iron != 0){
+                answer += (curD*5) + curI + curS;
+                iron--;
+            }else{
+                answer += (curD*25) + (curI*5) + curS;
+                stone--;
+            }
+
+        }
+
+        return answer;
+    }
+}

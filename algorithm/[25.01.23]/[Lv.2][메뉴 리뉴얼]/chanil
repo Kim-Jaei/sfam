@@ -1,0 +1,63 @@
+import java.util.*;
+
+class Solution {
+
+    public String[] solution(String[] orders, int[] course) {
+
+        List<String> answer = new ArrayList<>();
+
+        for(int i : course){
+            Map<String, Integer> cntMap = new HashMap<>();
+            int max = 0;
+
+            // 1. order를 돌며 map에 추가
+            for(String order : orders){
+                String[] arr = order.split("");
+                Arrays.sort(arr);
+                String[] result = new String[i];
+
+                combination(cntMap, arr, result, i, 0, 0);
+            }
+
+            // 2. cntMap 최고 값 찾기
+            for(Map.Entry<String, Integer> entry : cntMap.entrySet()){
+                int value = entry.getValue();
+                if(value >= 2 && value > max){
+                    max = value;
+                }
+            }
+
+            // 3. cntMap 최고값과 같은 것들 answer 리스트에 추가
+            for(Map.Entry<String, Integer> entry : cntMap.entrySet()){
+                String key = entry.getKey();
+                int value = entry.getValue();
+
+                if(value == max){
+                    answer.add(key);
+                }
+            }
+        }
+
+        Collections.sort(answer);
+        return answer.toArray(new String[0]);
+    }
+
+    public void combination(Map<String, Integer> cntMap,
+                            String[] arr,
+                            String[] result,
+                            int target,
+                            int idx,
+                            int start){
+        if(target == idx){
+            // map에 있는지 확인
+            String resultStr = String.join("", result);
+            cntMap.put(resultStr, cntMap.getOrDefault(resultStr,0) +1);
+            return;
+        }
+
+        for(int i = start; i < arr.length; i++){
+            result[idx] = arr[i];
+            combination(cntMap, arr, result, target, idx+1, i+1);
+        }
+    }
+}

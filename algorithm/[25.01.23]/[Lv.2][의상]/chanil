@@ -1,0 +1,27 @@
+import java.util.*;
+
+class Solution {
+    public int solution(String[][] clothes) {
+        Map<String, Integer> map = new HashMap<>();
+        int answer = 1;
+
+        // map에 옷 종류별로 개수 넣기
+        for(String[] str1: clothes){
+            Integer num = map.get(str1[1]);
+
+            if(num != null){
+                map.put(str1[1], num + 1 );
+            }else{
+                map.put(str1[1], 1);
+            }
+
+        }
+
+        // map 순회하며 부분집합 개수 구하기
+        for(int i : map.values()){
+            answer *= i+1;
+        }
+
+        return answer-1;
+    }
+}

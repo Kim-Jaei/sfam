@@ -1,0 +1,42 @@
+class Solution {
+    public String solution(String s) {
+        String answer = "";
+        char beforeC = 'a';
+        int idx = 0;
+
+        for(int i = 0; i < s.length(); i++){
+
+            if(i == 0){
+                beforeC = 'a';
+            }else{
+                beforeC = s.charAt(i-1);
+            }
+
+            // 앞이 공백이면 idx 초기화
+            if(s.charAt(i) == ' '){
+                answer += " ";
+                idx = 0;
+                continue;
+            }
+
+            // idx 기준으로 대소문자 구분
+            if(idx % 2 == 0){
+                if(s.charAt(i) >= 'A' && s.charAt(i) <= 'Z'){
+                    answer += s.charAt(i);
+                }else{
+                    answer += (char)(s.charAt(i) - 32);
+                }
+            }else{
+                if(s.charAt(i) >= 'a' && s.charAt(i) <= 'z'){
+                    answer += s.charAt(i);
+                }else{
+                    answer += (char)(s.charAt(i) + 32);
+                }
+            }
+
+            idx++;
+        }
+
+        return answer;
+    }
+}
