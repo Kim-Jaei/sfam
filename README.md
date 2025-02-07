@@ -1,6 +1,7 @@
 # 🎈 SFam (Study Family)
 Computer Science와 Java 기반 Algorithm을 공부하는 스터디 모임입니다.
 <br>
+<br>
 
 ## ✍️ 스터디 계획
 - 매주 **월&목** 오후 6시 ~ 7시
@@ -10,6 +11,7 @@ Computer Science와 Java 기반 Algorithm을 공부하는 스터디 모임입니
 
 ## 📊 알고리즘 문제 난이도
 Programmers Lv.0/1/2
+<br>
 <br>
 
 ## 🗂️ 디렉토리 및 파일 구조
